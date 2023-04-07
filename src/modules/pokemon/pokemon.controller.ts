@@ -1,8 +1,8 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
 
 @Controller('pokemon')
-export class BloggerController {
+export class PokemonController {
   constructor(private commandBus: CommandBus) {}
 
   // @Get('/blogs/comments')
@@ -12,4 +12,7 @@ export class BloggerController {
   // ): Promise<PaginationViewModel<CommentsForPostsViewModal[]>> {
   //   return this.commentsQueryRepo.getCommentsForPostsByUserId(dto, user.id);
   // }
+
+  @Get('/pokemon')
+  async getAllPokemon() {}
 }

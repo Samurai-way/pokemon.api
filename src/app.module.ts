@@ -4,9 +4,10 @@ import { AppService } from './app.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { CqrsModule } from '@nestjs/cqrs';
+import { PokemonController } from './modules/pokemon/pokemon.controller';
 
 const useCases = [];
-const controllers = [AppController];
+const controllers = [AppController, PokemonController];
 const services = [AppService];
 const repositories = [];
 
