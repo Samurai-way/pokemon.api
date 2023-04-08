@@ -5,6 +5,12 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { CqrsModule } from '@nestjs/cqrs';
 import { PokemonController } from './modules/pokemon/pokemon.controller';
+import {
+  Pokemon,
+  PokemonSchema,
+} from './modules/pokemon/schemas/pokemon.schema';
+
+const mongooseModels = [{ name: Pokemon.name, schema: PokemonSchema }];
 
 const useCases = [];
 const controllers = [AppController, PokemonController];

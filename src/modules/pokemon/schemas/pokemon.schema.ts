@@ -4,11 +4,29 @@ import { HydratedDocument } from 'mongoose';
 export type PokemonDocument = HydratedDocument<Pokemon>;
 
 @Schema({ versionKey: false })
-export class Pokemon {
-  @Prop()
-  isBanned: boolean;
-  @Prop()
-  banDate: Date;
+export class Pokemon extends Document {
+  @Prop({ type: String, required: true })
+  id: string;
+
+  @Prop({ type: String, required: true })
+  name: string;
+
+  @Prop({ type: String, required: true })
+  imageUrl: string;
+
+  @Prop({ type: String, required: true })
+  type: string;
+
+  @Prop({ type: [String], required: true })
+  abilities: string[];
+
+  @Prop({ type: Number, required: true })
+  level: number;
+
+  @Prop({ type: [String] })
+  evolution: string[];
+  @Prop({ type: String })
+  userId: string;
 }
 
 // export class BlogOwnerInfo {
