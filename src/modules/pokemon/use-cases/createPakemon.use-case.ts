@@ -1,9 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { PokemonRepository } from '../repository/pokemonRepository';
-import { Model } from 'mongoose';
 import { Pokemon } from '../schemas/pokemon.schema';
-import { InjectModel } from '@nestjs/mongoose';
 
 @Injectable()
 export class CreatePokemonCommand {

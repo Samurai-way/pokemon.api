@@ -13,4 +13,7 @@ export class PokemonRepository {
   async createPokemon(newPokemon: Pokemon) {
     return this.pokemonModel.create({ ...newPokemon });
   }
+  async findAllPokemons() {
+    return this.pokemonModel.find();
+  }
 }
