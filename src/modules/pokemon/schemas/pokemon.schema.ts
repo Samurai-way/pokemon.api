@@ -6,7 +6,7 @@ export type PokemonDocument = HydratedDocument<Pokemon>;
 @Schema({ versionKey: false })
 export class Pokemon {
   @Prop({ type: String, required: true })
-  id: string;
+  id: number;
 
   @Prop({ type: String, required: true })
   name: string;
@@ -25,8 +25,8 @@ export class Pokemon {
 
   @Prop({ type: [String] })
   evolution: string[];
-  @Prop({ type: String })
-  userId: string;
+  @Prop()
+  userId: string | null;
 }
 
 // export class BlogOwnerInfo {

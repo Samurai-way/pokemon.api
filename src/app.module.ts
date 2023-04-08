@@ -9,13 +9,15 @@ import {
   Pokemon,
   PokemonSchema,
 } from './modules/pokemon/schemas/pokemon.schema';
+import { CreatePokemonUseCase } from './modules/pokemon/use-cases/createPakemon.use-case';
+import { PokemonRepository } from './modules/pokemon/repository/pokemonRepository';
 
 const mongooseModels = [{ name: Pokemon.name, schema: PokemonSchema }];
 
-const useCases = [];
+const useCases = [CreatePokemonUseCase];
 const controllers = [AppController, PokemonController];
 const services = [AppService];
-const repositories = [];
+const repositories = [PokemonRepository];
 
 @Module({
   imports: [
