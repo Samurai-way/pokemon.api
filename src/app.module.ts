@@ -31,6 +31,7 @@ const repositories = [];
       }),
       inject: [ConfigService],
     }),
+    MongooseModule.forFeature(mongooseModels),
   ],
   controllers,
   providers: [...services, ...repositories, ...useCases],

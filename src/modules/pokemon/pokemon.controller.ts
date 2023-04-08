@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Post } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
 
 @Controller('pokemon')
@@ -15,4 +15,9 @@ export class PokemonController {
 
   @Get('/pokemon')
   async getAllPokemon() {}
+
+  @Post('/pokemon')
+  async createPokemon() {
+    // return this.commandBus
+  }
 }

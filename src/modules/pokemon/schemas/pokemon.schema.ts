@@ -4,7 +4,7 @@ import { HydratedDocument } from 'mongoose';
 export type PokemonDocument = HydratedDocument<Pokemon>;
 
 @Schema({ versionKey: false })
-export class Pokemon extends Document {
+export class Pokemon {
   @Prop({ type: String, required: true })
   id: string;
 
