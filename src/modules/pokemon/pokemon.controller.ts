@@ -1,10 +1,15 @@
-import { Controller, Get, Post } from '@nestjs/common';
+import { Controller, Get, Post, Query } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
 import { CreatePokemonCommand } from './use-cases/createPakemon.use-case';
+import { PakemonsPaginationDto } from './dto/paginationDto';
+import { PokemonRepository } from './repository/pokemonRepository';
 
 @Controller('pokemon')
 export class PokemonController {
-  constructor(private commandBus: CommandBus) {}
+  constructor(
+    private commandBus: CommandBus,
+    private pakemonsRepo: PokemonRepository,
+  ) {}
 
   // @Get('/blogs/comments')
   // async getCommentsForAllPosts(
@@ -14,8 +19,10 @@ export class PokemonController {
   //   return this.commentsQueryRepo.getCommentsForPostsByUserId(dto, user.id);
   // }
 
-  @Get('/pokemon')
-  async getAllPokemon() {}
+  @Get('')
+  async getAllPokemon(@Query() dto: PakemonsPaginationDto) {
+    return this.pakemonsRepo.findAllPokemons(dto);
+  }
 
   @Post('/create')
   async createPokemon() {
