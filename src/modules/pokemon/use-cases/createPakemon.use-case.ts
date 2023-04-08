@@ -16,14 +16,14 @@ export class CreatePokemonUseCase implements ICommandHandler {
 
   async execute(command: CreatePokemonCommand) {
     const newPokemon: Pokemon = {
-      id: 1,
-      name: 'Bulbasaur',
+      id: 700,
+      name: 'Sylveon',
       imageUrl:
-        'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png',
-      type: 'Grass/Poison',
-      abilities: ['Overgrow', 'Chlorophyll'],
-      level: 1,
-      evolution: ['2'],
+        'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/700.png',
+      type: 'Fairy',
+      abilities: ['Cute Charm', 'Pixilate'],
+      level: 2,
+      evolution: [],
       userId: null,
     };
     return this.pokemonRepo.createPokemon(newPokemon);

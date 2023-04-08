@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Post } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
 import { CreatePokemonCommand } from './use-cases/createPakemon.use-case';
 
@@ -17,7 +17,7 @@ export class PokemonController {
   @Get('/pokemon')
   async getAllPokemon() {}
 
-  @Get('/create')
+  @Post('/create')
   async createPokemon() {
     return this.commandBus.execute(new CreatePokemonCommand());
   }
