@@ -8,7 +8,7 @@ import { PokemonRepository } from './repository/pokemonRepository';
 export class PokemonController {
   constructor(
     private commandBus: CommandBus,
-    private pakemonsRepo: PokemonRepository,
+    private pokemonsRepo: PokemonRepository,
   ) {}
 
   // @Get('/blogs/comments')
@@ -21,7 +21,7 @@ export class PokemonController {
 
   @Get('')
   async getAllPokemon(@Query() dto: PakemonsPaginationDto) {
-    return this.pakemonsRepo.findAllPokemons(dto);
+    return this.pokemonsRepo.findAllPokemons(dto);
   }
 
   @Post('/create')

@@ -16,7 +16,35 @@ export class PokemonRepository {
     return this.pokemonModel.create({ ...newPokemon });
   }
 
+  // async findAllPokemons(paginationType: PakemonsPaginationDto) {
+  //   const findAndSortedPakemons = await this.pokemonModel
+  //     .find(
+  //       {
+  //         name: { $regex: paginationType.searchNameTerm ?? '', $options: 'i' },
+  //       },
+  //       { _id: 0 },
+  //     )
+  //     .sort({
+  //       [paginationType.sortBy]:
+  //         paginationType.sortDirection === 'asc' ? 1 : -1,
+  //     })
+  //     .limit(paginationType.pageSize)
+  //     .lean();
+  //   const getCountPakemons = await this.pokemonModel.countDocuments({
+  //     name: { $regex: paginationType.searchNameTerm ?? '', $options: 'i' },
+  //   });
+  //   return new PaginationViewModel(
+  //     getCountPakemons,
+  //     paginationType.pageNumber,
+  //     paginationType.pageSize,
+  //     findAndSortedPakemons,
+  //   );
+  // }
   async findAllPokemons(paginationType: PakemonsPaginationDto) {
+    console.log(paginationType.getSkipSize());
+    const skipSize = paginationType.getSkipSize();
+    const pageSize = paginationType.pageSize;
+
     const findAndSortedPakemons = await this.pokemonModel
       .find(
         {
@@ -28,15 +56,18 @@ export class PokemonRepository {
         [paginationType.sortBy]:
           paginationType.sortDirection === 'asc' ? 1 : -1,
       })
-      .limit(paginationType.pageSize)
+      .skip(skipSize)
+      .limit(pageSize)
       .lean();
-    const getCountPakemons = await this.pokemonModel.countDocuments({
+
+    const countPakemons = await this.pokemonModel.countDocuments({
       name: { $regex: paginationType.searchNameTerm ?? '', $options: 'i' },
     });
+
     return new PaginationViewModel(
-      getCountPakemons,
+      countPakemons,
       paginationType.pageNumber,
-      paginationType.pageSize,
+      pageSize,
       findAndSortedPakemons,
     );
   }
