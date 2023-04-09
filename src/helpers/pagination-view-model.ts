@@ -18,3 +18,10 @@ export class PaginationViewModel<T> {
     this.items = items;
   }
 }
+export class Items<T> {
+  items: T;
+
+  constructor(items: T) {
+    this.items = items;
+  }
+}

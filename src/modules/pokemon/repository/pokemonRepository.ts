@@ -3,7 +3,10 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Pokemon, PokemonDocument } from '../schemas/pokemon.schema';
 import { PakemonsPaginationDto } from '../dto/paginationDto';
-import { PaginationViewModel } from '../../../helpers/pagination-view-model';
+import {
+  Items,
+  PaginationViewModel,
+} from '../../../helpers/pagination-view-model';
 
 @Injectable()
 export class PokemonRepository {
@@ -23,36 +26,16 @@ export class PokemonRepository {
     );
   }
 
-  async findMyPokemons(userId: string, paginationType: PakemonsPaginationDto) {
-    const skipSize = paginationType.getSkipSize();
-    const pageSize = paginationType.pageSize;
-
+  async findMyPokemons(userId: string, dto?: PakemonsPaginationDto) {
     const findAndSortedPakemons = await this.pokemonModel
       .find(
         {
           userId,
-          name: { $regex: paginationType.searchNameTerm ?? '', $options: 'i' },
         },
         { _id: 0 },
       )
-      .sort({
-        [paginationType.sortBy]:
-          paginationType.sortDirection === 'asc' ? 1 : -1,
-      })
-      .skip(skipSize)
-      .limit(pageSize)
       .lean();
-
-    const countPakemons = await this.pokemonModel.countDocuments({
-      name: { $regex: paginationType.searchNameTerm ?? '', $options: 'i' },
-    });
-
-    return new PaginationViewModel(
-      countPakemons,
-      paginationType.pageNumber,
-      pageSize,
-      findAndSortedPakemons,
-    );
+    return new Items(findAndSortedPakemons);
   }
 
   async findAllPokemons(paginationType: PakemonsPaginationDto) {

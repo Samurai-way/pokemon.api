@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
 import { CreatePokemonCommand } from './use-cases/createPakemon.use-case';
 import { PakemonsPaginationDto } from './dto/paginationDto';
@@ -17,12 +17,9 @@ export class PokemonController {
     return this.pokemonsRepo.findAllPokemons(dto);
   }
 
-  @Get('/my')
-  async getMyPokemon(
-    @Query() dto: PakemonsPaginationDto,
-    @Body('userId') userId: string,
-  ) {
-    return this.pokemonsRepo.findMyPokemons(userId, dto);
+  @Get('/my/:userId')
+  async getMyPokemon(@Param('userId') userId: string) {
+    return this.pokemonsRepo.findMyPokemons(userId);
   }
 
   @Post('/create')
