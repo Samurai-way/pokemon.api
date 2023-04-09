@@ -3,7 +3,7 @@ import { CommandBus } from '@nestjs/cqrs';
 import { CreatePokemonCommand } from './use-cases/createPakemon.use-case';
 import { PakemonsPaginationDto } from './dto/paginationDto';
 import { PokemonRepository } from './repository/pokemonRepository';
-import { recoverPersonalSignature } from '@metamask/eth-sig-util';
+
 @Controller('pokemon')
 export class PokemonController {
   constructor(
@@ -33,16 +33,5 @@ export class PokemonController {
   ) {
     const { account, message, signature, pokemonName } = data;
     console.log('pokemonName', pokemonName);
-    const recoveredAddress = recoverPersonalSignature({
-      data: message,
-      signature: signature,
-    });
-    console.log('recoveredAddress', recoveredAddress);
-    if (recoveredAddress.toLowerCase() === account.toLowerCase()) {
-      console.log('Подпись верна!');
-      // Делайте здесь, что вам нужно, если подпись верна, например, сохраните pokemonName в базе данных.
-    } else {
-      console.log('Неправильный адрес!');
-    }
   }
 }
