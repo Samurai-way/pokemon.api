@@ -13,10 +13,15 @@ import { CreatePokemonUseCase } from './modules/pokemon/use-cases/createPakemon.
 import { PokemonRepository } from './modules/pokemon/repository/pokemonRepository';
 import { PokemonService } from './modules/pokemon/service/pokemonService';
 import { AddPokemonUseCase } from './modules/pokemon/use-cases/addPokemin.use-case';
+import { FindMyPokemonsUseCase } from './modules/pokemon/use-cases/findMyPokemons.use-case';
 
 const mongooseModels = [{ name: Pokemon.name, schema: PokemonSchema }];
 
-const useCases = [CreatePokemonUseCase, AddPokemonUseCase];
+const useCases = [
+  CreatePokemonUseCase,
+  AddPokemonUseCase,
+  FindMyPokemonsUseCase,
+];
 const controllers = [AppController, PokemonController];
 const services = [AppService, PokemonService];
 const repositories = [PokemonRepository];
