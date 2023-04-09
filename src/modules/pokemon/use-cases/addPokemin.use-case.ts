@@ -24,7 +24,6 @@ export class AddPokemonUseCase implements ICommandHandler {
         command.data.account,
         command.data.pokemonName,
       );
-      // Делайте здесь, что вам нужно, если подпись верна, например, сохраните pokemonName в базе данных.
     } else {
       console.log('Неправильный адрес!');
       return false;
