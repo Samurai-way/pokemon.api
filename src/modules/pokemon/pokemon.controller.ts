@@ -3,6 +3,8 @@ import { CommandBus } from '@nestjs/cqrs';
 import { CreatePokemonCommand } from './use-cases/createPakemon.use-case';
 import { PakemonsPaginationDto } from './dto/paginationDto';
 import { PokemonRepository } from './repository/pokemonRepository';
+import { recoverPersonalSignature } from '@metamask/eth-sig-util';
+import { AddPokemonCommand } from './use-cases/addPokemin.use-case';
 
 @Controller('pokemon')
 export class PokemonController {
@@ -31,7 +33,6 @@ export class PokemonController {
       pokemonName: string;
     },
   ) {
-    const { account, message, signature, pokemonName } = data;
-    console.log('pokemonName', pokemonName);
+    return this.commandBus.execute(new AddPokemonCommand(data));
   }
 }
