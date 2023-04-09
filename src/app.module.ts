@@ -11,12 +11,13 @@ import {
 } from './modules/pokemon/schemas/pokemon.schema';
 import { CreatePokemonUseCase } from './modules/pokemon/use-cases/createPakemon.use-case';
 import { PokemonRepository } from './modules/pokemon/repository/pokemonRepository';
+import { PokemonService } from './modules/pokemon/service/pokemonService';
 
 const mongooseModels = [{ name: Pokemon.name, schema: PokemonSchema }];
 
 const useCases = [CreatePokemonUseCase];
 const controllers = [AppController, PokemonController];
-const services = [AppService];
+const services = [AppService, PokemonService];
 const repositories = [PokemonRepository];
 
 @Module({
