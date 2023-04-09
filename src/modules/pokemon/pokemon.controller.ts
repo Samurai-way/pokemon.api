@@ -3,7 +3,6 @@ import { CommandBus } from '@nestjs/cqrs';
 import { CreatePokemonCommand } from './use-cases/createPakemon.use-case';
 import { PakemonsPaginationDto } from './dto/paginationDto';
 import { PokemonRepository } from './repository/pokemonRepository';
-import { recoverPersonalSignature } from '@metamask/eth-sig-util';
 import { AddPokemonCommand } from './use-cases/addPokemin.use-case';
 
 @Controller('pokemon')
@@ -16,6 +15,14 @@ export class PokemonController {
   @Get('')
   async getAllPokemon(@Query() dto: PakemonsPaginationDto) {
     return this.pokemonsRepo.findAllPokemons(dto);
+  }
+
+  @Get('/my')
+  async getMyPokemon(
+    @Query() dto: PakemonsPaginationDto,
+    @Body('userId') userId: string,
+  ) {
+    return this.pokemonsRepo.findMyPokemons(userId, dto);
   }
 
   @Post('/create')
