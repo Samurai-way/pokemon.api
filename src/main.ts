@@ -27,6 +27,7 @@ async function start() {
       origin: origin,
       allowedHeaders: 'Content-Type,Authorization',
       methods: 'GET,PUT,POST,DELETE,OPTIONS',
+      credentials: true,
     },
   });
   const app = createApp(rawApp);
