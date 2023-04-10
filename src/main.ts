@@ -6,7 +6,9 @@ import { createApp } from './commons/createApp';
 const PORT = process.env.PORT || 3000;
 
 async function start() {
-  const rawApp = await NestFactory.create(AppModule, { cors: { origin: '*' } });
+  const rawApp = await NestFactory.create(AppModule, {
+    cors: { origin: ['http://localhost:3001'] },
+  });
   const app = createApp(rawApp);
   await app.listen(PORT, () => {
     console.log(`[nest main] -> server started on http://localhost:${PORT}`);
