@@ -1,4 +1,4 @@
-import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
@@ -14,8 +14,6 @@ import { PokemonRepository } from './modules/pokemon/repository/pokemonRepositor
 import { PokemonService } from './modules/pokemon/service/pokemonService';
 import { AddPokemonUseCase } from './modules/pokemon/use-cases/addPokemin.use-case';
 import { FindMyPokemonsUseCase } from './modules/pokemon/use-cases/findMyPokemons.use-case';
-import { HttpModule } from '@nestjs/axios';
-import { CorsMiddleware } from './helpers/corsHelper';
 
 const mongooseModels = [{ name: Pokemon.name, schema: PokemonSchema }];
 
@@ -30,7 +28,6 @@ const repositories = [PokemonRepository];
 
 @Module({
   imports: [
-    HttpModule,
     CqrsModule,
     ConfigModule.forRoot({
       isGlobal: true,
@@ -48,8 +45,4 @@ const repositories = [PokemonRepository];
   controllers,
   providers: [...services, ...repositories, ...useCases],
 })
-export class AppModule implements NestModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer.apply(CorsMiddleware).forRoutes('*');
-  }
-}
+export class AppModule {}
