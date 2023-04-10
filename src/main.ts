@@ -25,7 +25,7 @@ const origin = [
 async function start() {
   const rawApp = await NestFactory.create(AppModule, {
     cors: {
-      origin: origin,
+      origin: '*',
       allowedHeaders: 'Content-Type,Authorization',
       methods: 'GET,PUT,POST,DELETE,OPTIONS',
       credentials: true,
