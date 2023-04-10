@@ -34,6 +34,7 @@ export class PokemonController {
       signature: string;
     },
   ): Promise<Items<Pokemon[]>> {
+    console.log('data', data);
     return this.commandBus.execute(new FindMyPokemonsCommand(data));
   }
 
