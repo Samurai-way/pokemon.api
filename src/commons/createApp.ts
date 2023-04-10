@@ -17,7 +17,6 @@ export const createApp = (app: INestApplication): INestApplication => {
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     preflightContinue: false,
     optionsSuccessStatus: 204,
-    credentials: true,
   });
   app.use(cookieParser());
   useContainer(app.select(AppModule), { fallbackOnErrors: true });
