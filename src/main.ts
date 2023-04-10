@@ -9,8 +9,8 @@ async function start() {
   const rawApp = await NestFactory.create(AppModule, {
     cors: {
       origin: '*',
-      allowedHeaders: 'Content-Type,Authorization',
-      methods: 'GET,PUT,POST,DELETE,OPTIONS',
+      allowedHeaders: 'Content-Type, Authorization',
+      methods: 'GET, PUT, POST, DELETE, OPTIONS',
       credentials: true,
       preflightContinue: true,
       optionsSuccessStatus: 204,
@@ -22,7 +22,7 @@ async function start() {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader(
       'Access-Control-Allow-Headers',
-      'Origin, X-Requested-With, Content-Type, Accept',
+      'Origin, X-Requested-With, Content-Type, Accept, Authorization',
     );
     res.setHeader(
       'Access-Control-Allow-Methods',
@@ -30,7 +30,7 @@ async function start() {
     );
     // check if the request is a preflight request
     if (req.method === 'OPTIONS') {
-      res.status(200).end();
+      res.status(204).end();
     } else {
       next();
     }
