@@ -7,20 +7,21 @@ import { INestApplication } from '@nestjs/common';
 
 const PORT = process.env.PORT || 3000;
 
-const origin = ['*'];
+// const origin = ['*'];
 
-const getCorsOptions = (origin: string[]): CorsOptions => ({
-  origin,
-});
-
-export const corseSetup = (app: INestApplication) => {
-  app.enableCors(getCorsOptions(origin));
-};
+// const getCorsOptions = (origin: string[]): CorsOptions => ({
+//   origin,
+// });
+//
+// export const corseSetup = (app: INestApplication) => {
+//   app.enableCors(getCorsOptions(origin));
+// };
 
 async function start() {
-  const rawApp = await NestFactory.create(AppModule);
+  const rawApp = await NestFactory.create(AppModule, {
+    cors: { origin: ['*'] },
+  });
   const app = createApp(rawApp);
-  corseSetup(app);
   await app.listen(PORT, () => {
     console.log(`[nest main] -> server started on http://localhost:${PORT}`);
   });
