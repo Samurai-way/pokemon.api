@@ -15,18 +15,21 @@ export class PokemonRepository {
     private readonly pokemonModel: Model<PokemonDocument>,
   ) {}
 
-  async createPokemon(newPokemon: Pokemon) {
+  async createPokemon(newPokemon: Pokemon): Promise<Pokemon> {
     return this.pokemonModel.create({ ...newPokemon });
   }
 
-  async updatePokemonUserId(account: string, pokemonName: string) {
+  async updatePokemonUserId(
+    account: string,
+    pokemonName: string,
+  ): Promise<Pokemon> {
     return this.pokemonModel.findOneAndUpdate(
       { name: pokemonName },
       { userId: account },
     );
   }
 
-  async findMyPokemons(userId: string) {
+  async findMyPokemons(userId: string): Promise<Items<Pokemon[]>> {
     const findAndSortedPakemons = await this.pokemonModel
       .find(
         {
@@ -38,7 +41,9 @@ export class PokemonRepository {
     return new Items(findAndSortedPakemons);
   }
 
-  async findAllPokemons(paginationType: PakemonsPaginationDto) {
+  async findAllPokemons(
+    paginationType: PakemonsPaginationDto,
+  ): Promise<PaginationViewModel<Pokemon[]>> {
     const skipSize = paginationType.getSkipSize();
     const pageSize = paginationType.pageSize;
 

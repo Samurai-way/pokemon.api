@@ -1,8 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { findPokemonDto } from '../dto/addPokemonDto';
 import { PokemonRepository } from '../repository/pokemonRepository';
-import { recoverPersonalSignature } from '@metamask/eth-sig-util';
+import { PokemonService } from '../service/pokemonService';
+import { Items } from '../../../helpers/pagination-view-model';
+import { Pokemon } from '../schemas/pokemon.schema';
 
 @Injectable()
 export class FindMyPokemonsCommand {
@@ -11,19 +13,18 @@ export class FindMyPokemonsCommand {
 
 @CommandHandler(FindMyPokemonsCommand)
 export class FindMyPokemonsUseCase implements ICommandHandler {
-  constructor(public readonly pokemonRepo: PokemonRepository) {}
+  constructor(
+    public readonly pokemonRepo: PokemonRepository,
+    public readonly pokemonService: PokemonService,
+  ) {}
 
-  async execute(command: FindMyPokemonsCommand) {
-    const recoveredAddress = recoverPersonalSignature({
-      data: command.data.message,
-      signature: command.data.signature,
-    });
-    if (recoveredAddress.toLowerCase() === command.data.account.toLowerCase()) {
-      console.log('Подпись верна!');
-      return this.pokemonRepo.findMyPokemons(command.data.account);
-    } else {
-      console.log('Неправильный адрес!');
-      return false;
-    }
+  async execute(command: FindMyPokemonsCommand): Promise<Items<Pokemon[]>> {
+    const user = await this.pokemonService.validateUser(
+      command.data.account,
+      command.data.message,
+      command.data.signature,
+    );
+    if (!user) throw new NotFoundException([]);
+    return this.pokemonRepo.findMyPokemons(command.data.account);
   }
 }

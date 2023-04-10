@@ -5,6 +5,8 @@ import { PakemonsPaginationDto } from './dto/paginationDto';
 import { PokemonRepository } from './repository/pokemonRepository';
 import { AddPokemonCommand } from './use-cases/addPokemin.use-case';
 import { FindMyPokemonsCommand } from './use-cases/findMyPokemons.use-case';
+import { Pokemon } from './schemas/pokemon.schema';
+import { Items } from '../../helpers/pagination-view-model';
 
 @Controller('pokemon')
 export class PokemonController {
@@ -26,7 +28,7 @@ export class PokemonController {
       message: string;
       signature: string;
     },
-  ) {
+  ): Promise<Items<Pokemon[]>> {
     return this.commandBus.execute(new FindMyPokemonsCommand(data));
   }
 
@@ -44,7 +46,7 @@ export class PokemonController {
       signature: string;
       pokemonName: string;
     },
-  ) {
+  ): Promise<Pokemon> {
     return this.commandBus.execute(new AddPokemonCommand(data));
   }
 }

@@ -3,6 +3,7 @@ import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { AddPokemonDto } from '../dto/addPokemonDto';
 import { PokemonRepository } from '../repository/pokemonRepository';
 import { PokemonService } from '../service/pokemonService';
+import { Pokemon } from '../schemas/pokemon.schema';
 
 @Injectable()
 export class AddPokemonCommand {
@@ -16,7 +17,7 @@ export class AddPokemonUseCase implements ICommandHandler {
     public readonly pokemonService: PokemonService,
   ) {}
 
-  async execute(command: AddPokemonCommand) {
+  async execute(command: AddPokemonCommand): Promise<Pokemon> {
     const user = await this.pokemonService.validateUser(
       command.data.account,
       command.data.message,
