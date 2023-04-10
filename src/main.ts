@@ -13,6 +13,7 @@ async function start() {
       methods: 'GET,PUT,POST,DELETE,OPTIONS',
       credentials: true,
       preflightContinue: true,
+      optionsSuccessStatus: 204,
     },
   });
 
