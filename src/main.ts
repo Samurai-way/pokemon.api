@@ -16,10 +16,18 @@ const PORT = process.env.PORT || 3000;
 // export const corseSetup = (app: INestApplication) => {
 //   app.enableCors(getCorsOptions(origin));
 // };
-
+const origin = [
+  'http://localhost:3001',
+  'https://classy-naiad-2842bd.netlify.app',
+  'https://pokemon-api-hazel-delta.vercel.app',
+];
 async function start() {
   const rawApp = await NestFactory.create(AppModule, {
-    cors: { origin: ['*'] },
+    cors: {
+      origin: origin,
+      allowedHeaders: 'Content-Type,Authorization',
+      methods: 'GET,PUT,POST,DELETE,OPTIONS',
+    },
   });
   const app = createApp(rawApp);
   await app.listen(PORT, () => {
