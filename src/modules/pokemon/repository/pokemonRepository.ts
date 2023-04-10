@@ -26,7 +26,7 @@ export class PokemonRepository {
     );
   }
 
-  async findMyPokemons(userId: string, dto?: PakemonsPaginationDto) {
+  async findMyPokemons(userId: string) {
     const findAndSortedPakemons = await this.pokemonModel
       .find(
         {

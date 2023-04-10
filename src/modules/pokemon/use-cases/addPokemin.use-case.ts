@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { AddPokemonDto } from '../dto/addPokemonDto';
-import { recoverPersonalSignature } from '@metamask/eth-sig-util';
 import { PokemonRepository } from '../repository/pokemonRepository';
+import { PokemonService } from '../service/pokemonService';
 
 @Injectable()
 export class AddPokemonCommand {
@@ -11,22 +11,21 @@ export class AddPokemonCommand {
 
 @CommandHandler(AddPokemonCommand)
 export class AddPokemonUseCase implements ICommandHandler {
-  constructor(public readonly pokemonRepo: PokemonRepository) {}
+  constructor(
+    public readonly pokemonRepo: PokemonRepository,
+    public readonly pokemonService: PokemonService,
+  ) {}
 
   async execute(command: AddPokemonCommand) {
-    const recoveredAddress = recoverPersonalSignature({
-      data: command.data.message,
-      signature: command.data.signature,
-    });
-    if (recoveredAddress.toLowerCase() === command.data.account.toLowerCase()) {
-      console.log('Подпись верна!');
-      return this.pokemonRepo.updatePokemonUserId(
-        command.data.account,
-        command.data.pokemonName,
-      );
-    } else {
-      console.log('Неправильный адрес!');
-      return false;
-    }
+    const user = await this.pokemonService.validateUser(
+      command.data.account,
+      command.data.message,
+      command.data.signature,
+    );
+    if (!user) throw new NotFoundException([]);
+    return this.pokemonRepo.updatePokemonUserId(
+      command.data.account,
+      command.data.pokemonName,
+    );
   }
 }
