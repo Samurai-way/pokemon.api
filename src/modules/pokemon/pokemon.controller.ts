@@ -25,9 +25,9 @@ export class PokemonController {
     return this.pokemonsRepo.findAllPokemons(dto);
   }
 
-  @Post('/my')
+  @Get('/my')
   async getMyPokemon(
-    @Body()
+    @Query()
     data: {
       account: string;
       message: string;
