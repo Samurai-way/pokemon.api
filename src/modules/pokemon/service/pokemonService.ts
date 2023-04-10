@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { recoverPersonalSignature } from '@metamask/eth-sig-util';
 
 @Injectable()
@@ -8,14 +8,18 @@ export class PokemonService {
     message: string,
     signature: string,
   ): Promise<boolean> {
-    const recoveredAddress = recoverPersonalSignature({
-      data: message,
-      signature: signature,
-    });
-    if (recoveredAddress.toLowerCase() === account.toLowerCase()) {
-      return true;
-    } else {
-      return null;
+    try {
+      const recoveredAddress = recoverPersonalSignature({
+        data: message,
+        signature: signature,
+      });
+      if (recoveredAddress.toLowerCase() === account.toLowerCase()) {
+        return true;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      throw new NotFoundException([]);
     }
   }
 }
