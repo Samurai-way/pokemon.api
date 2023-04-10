@@ -7,7 +7,7 @@ import { INestApplication } from '@nestjs/common';
 
 const PORT = process.env.PORT || 3000;
 
-const origin = ['https://master--classy-naiad-2842bd.netlify.app'];
+const origin = ['https://pokemon-api-hazel-delta.vercel.app/api'];
 
 const getCorsOptions = (origin: string[]): CorsOptions => ({
   origin,
