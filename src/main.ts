@@ -11,7 +11,7 @@ const origin = ['https://master--classy-naiad-2842bd.netlify.app'];
 
 const getCorsOptions = (origin: string[]): CorsOptions => ({
   origin,
-  credentials: true,
+  // credentials: true,
 });
 
 export const corseSetup = (app: INestApplication) => {
