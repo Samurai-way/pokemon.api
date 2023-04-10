@@ -12,12 +12,6 @@ import cookieParser = require('cookie-parser');
 
 export const createApp = (app: INestApplication): INestApplication => {
   app.setGlobalPrefix('api');
-  app.enableCors({
-    origin: '*',
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    preflightContinue: false,
-    optionsSuccessStatus: 204,
-  });
   app.use(cookieParser());
   useContainer(app.select(AppModule), { fallbackOnErrors: true });
   app.useGlobalPipes(
