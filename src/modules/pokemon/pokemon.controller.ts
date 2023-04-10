@@ -6,7 +6,10 @@ import { PokemonRepository } from './repository/pokemonRepository';
 import { AddPokemonCommand } from './use-cases/addPokemin.use-case';
 import { FindMyPokemonsCommand } from './use-cases/findMyPokemons.use-case';
 import { Pokemon } from './schemas/pokemon.schema';
-import { Items } from '../../helpers/pagination-view-model';
+import {
+  Items,
+  PaginationViewModel,
+} from '../../helpers/pagination-view-model';
 
 @Controller('pokemon')
 export class PokemonController {
@@ -16,7 +19,9 @@ export class PokemonController {
   ) {}
 
   @Get('')
-  async getAllPokemon(@Query() dto: PakemonsPaginationDto) {
+  async getAllPokemon(
+    @Query() dto: PakemonsPaginationDto,
+  ): Promise<PaginationViewModel<Pokemon[]>> {
     return this.pokemonsRepo.findAllPokemons(dto);
   }
 
