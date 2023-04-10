@@ -7,7 +7,7 @@ const PORT = process.env.PORT || 3000;
 
 async function start() {
   const rawApp = await NestFactory.create(AppModule, {
-    cors: { origin: ['http://localhost:3001'] },
+    cors: { origin: ['https://master--classy-naiad-2842bd.netlify.app'] },
   });
   const app = createApp(rawApp);
   await app.listen(PORT, () => {
