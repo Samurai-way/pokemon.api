@@ -14,6 +14,7 @@ async function start() {
     // preflightContinue: true,
     // optionsSuccessStatus: 204,
   });
+  app.setGlobalPrefix('api');
   // const app = createApp(rawApp);
   // app.use((req, res, next) => {
   //   res.setHeader('Access-Control-Allow-Origin', '*');
