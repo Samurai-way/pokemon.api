@@ -11,8 +11,8 @@ async function start() {
     allowedHeaders: 'Content-Type, Authorization',
     methods: 'GET, PUT, POST, DELETE, OPTIONS',
     credentials: true,
-    preflightContinue: true,
-    optionsSuccessStatus: 204,
+    // preflightContinue: true,
+    // optionsSuccessStatus: 204,
   });
   // const app = createApp(rawApp);
   // app.use((req, res, next) => {
