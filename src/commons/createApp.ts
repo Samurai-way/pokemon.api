@@ -38,7 +38,7 @@ export const createApp = (app: INestApplication): INestApplication => {
   app.enableCors({
     origin: '*',
     allowedHeaders:
-      'Content-Type, Authorization, X-Requested-With, Origin, Accept',
+      'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version',
     methods: 'GET, PUT, POST, DELETE, OPTIONS',
     credentials: true,
     // preflightContinue: true,
