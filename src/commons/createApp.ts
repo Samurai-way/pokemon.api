@@ -35,14 +35,14 @@ export const createApp = (app: INestApplication): INestApplication => {
       },
     }),
   );
-  app.enableCors({
-    origin: 'https://classy-naiad-2842bd.netlify.app',
-    allowedHeaders: 'Content-Type, Authorization',
-    methods: 'GET, PUT, POST, DELETE, OPTIONS',
-    credentials: true,
-    // preflightContinue: true,
-    optionsSuccessStatus: 204,
-  });
+  // app.enableCors({
+  //   origin: 'https://classy-naiad-2842bd.netlify.app',
+  //   allowedHeaders: 'Content-Type, Authorization',
+  //   methods: 'GET, PUT, POST, DELETE, OPTIONS',
+  //   credentials: true,
+  //   // preflightContinue: true,
+  //   optionsSuccessStatus: 204,
+  // });
   app.useGlobalFilters(new HttpExceptionFilter());
   const config = new DocumentBuilder()
     .setTitle('Pokemon example')

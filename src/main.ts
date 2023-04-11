@@ -6,7 +6,7 @@ import { createApp } from './commons/createApp';
 const PORT = process.env.PORT || 3000;
 
 async function start() {
-  const rawApp = await NestFactory.create(AppModule);
+  const rawApp = await NestFactory.create(AppModule, { cors: true });
   const app = createApp(rawApp);
   // app.use((req, res, next) => {
   //   res.setHeader('Access-Control-Allow-Origin', '*');
