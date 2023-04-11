@@ -36,7 +36,7 @@ export const createApp = (app: INestApplication): INestApplication => {
     }),
   );
   app.enableCors({
-    origin: '*',
+    origin: 'https://classy-naiad-2842bd.netlify.app',
     allowedHeaders: 'Content-Type, Authorization',
     methods: 'GET, PUT, POST, DELETE, OPTIONS',
     credentials: true,
