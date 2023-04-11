@@ -37,10 +37,10 @@ export const createApp = (app: INestApplication): INestApplication => {
   );
   app.enableCors({
     origin: '*',
-    allowedHeaders:
-      'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version',
-    methods: 'GET, PUT, POST, DELETE, OPTIONS',
-    credentials: true,
+    // allowedHeaders:
+    //   'Content-Type, Authorization, X-Requested-With, Origin, Accept',
+    // methods: 'GET, PUT, POST, DELETE, OPTIONS',
+    // credentials: true,
     // preflightContinue: true,
     // optionsSuccessStatus: 204,
   });
